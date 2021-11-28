@@ -9,11 +9,11 @@ class CourseList(Resource):
 
 
 class Course(Resource):
-    def get(self: id):
+    def get(self, id):
         return jsonify({"title": "Python Basics"})
 
-    def put(self: id):
+    def put(self, id):
         return jsonify({"title": "Python Basics"})
 
-    def delete(self: id):
+    def delete(self, id):
         return jsonify({"title": "Python Basics"})

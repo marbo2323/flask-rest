@@ -18,6 +18,8 @@ class Review(Model):
     comment = TextField(default='')
     reated_at = DateTimeField(default=datetime.datetime.now)
 
+    g = DecimalField()
+
     class Meta:
         database = DATABASE
 
