@@ -2,7 +2,7 @@ from flask import jsonify, Blueprint
 from flask_restful import Resource, Api, reqparse, inputs, fields, marshal, marshal_with, abort, url_for
 import models
 from auth import auth
-from common.responses import error_response
+from common.helpers import error_response
 
 course_fields = {
     "id": fields.Integer,

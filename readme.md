@@ -7,7 +7,7 @@ python -m venv venv
 .\venv\Scripts\activate
 
 python -m pip install --upgrade pip
-pip install flask flask-restful peewee argon2-cffi flask-httpauth
+pip install flask flask-restful peewee argon2-cffi flask-httpauth flask_limiter
 ````
 
 # Treehouse challanges
