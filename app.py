@@ -18,7 +18,7 @@ app.register_blueprint(reviews_api, url_prefix=API_PREFIX)
 app.register_blueprint(users_api, url_prefix=API_PREFIX)
 logger = app.logger
 
-limiter = Limiter(app, global_limits=[config.DEFAULT_RATE], key_func=get_remote_address)
+limiter = Limiter(app, application_limits=[config.DEFAULT_RATE], key_func=get_remote_address)
 limiter.limit("40/day")(users_api)
 limiter.limit(config.DEFAULT_RATE, per_method=True, methods=["post", "put", "delete"])(courses_api)
 limiter.limit(config.DEFAULT_RATE, per_method=True, methods=["post", "put", "delete"])(reviews_api)
