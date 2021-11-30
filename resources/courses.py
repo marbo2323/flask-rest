@@ -1,6 +1,7 @@
 from flask import jsonify, Blueprint
 from flask_restful import Resource, Api, reqparse, inputs, fields, marshal, marshal_with, abort, url_for
 import models
+
 from auth import auth
 from common.helpers import error_response
 
@@ -81,13 +82,12 @@ class Course(Resource):
     def get(self, id):
         return add_reviews(course_or_404(id))
 
-    @marshal_with(course_fields)
     @auth.login_required
     def put(self, id):
         args = self.reqparse.parse_args()
         query = models.Course.update(**args).where(models.Course.id == id)
         query.execute()
-        return (add_reviews(models.Course.get(models.Course.id == id)), 200,
+        return (marshal(add_reviews(models.Course.get(models.Course.id == id)),course_fields), 200,
             {"Location": url_for("courses.course", id=id)})
 
     @auth.login_required
