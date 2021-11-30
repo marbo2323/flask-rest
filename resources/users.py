@@ -1,7 +1,7 @@
 import json
 
-from flask import Blueprint, make_response, url_for
-from flask_restful import Resource, reqparse, fields, marshal_with, Api, marshal
+from flask import Blueprint, make_response
+from flask_restful import Resource, reqparse, fields, Api, marshal
 
 import models
 
@@ -17,7 +17,7 @@ class UserList(Resource):
             "username",
             required=True,
             help="No username provided",
-            location=["form","json"]
+            location=["form", "json"]
         )
 
         self.reqparse.add_argument(
@@ -56,7 +56,6 @@ class UserList(Resource):
                 json.dumps({
                     'error': ex.args[0]
                 }), 400)
-
 
 
 users_api = Blueprint('users', __name__)

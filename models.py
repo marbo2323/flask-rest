@@ -1,9 +1,11 @@
 import datetime
-from peewee import *
+
 from argon2 import PasswordHasher
-import config
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer,
                           BadSignature, SignatureExpired)
+from peewee import *
+
+import config
 
 DATABASE = SqliteDatabase('courses.sqlite')
 HASHER = PasswordHasher()
@@ -22,7 +24,7 @@ class User(Model):
         email = email.lower()
         try:
             cls.select().where(
-                (cls.email == email)|(cls.username**username)
+                (cls.email == email) | (cls.username ** username)
             ).get()
         except cls.DoesNotExist:
             user = cls(username=username, email=email)
@@ -52,8 +54,7 @@ class User(Model):
 
     def generate_auth_token(self, expires=3600):
         serializer = Serializer(config.SECRET_KEY, expires_in=expires)
-        return serializer.dumps({"id":self.id})
-
+        return serializer.dumps({"id": self.id})
 
 
 class Course(Model):

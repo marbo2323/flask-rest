@@ -1,13 +1,13 @@
 from flask import Flask, g, jsonify
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 import config
 import models
+from auth import auth
 from resources.courses import courses_api
 from resources.reviews import reviews_api
 from resources.users import users_api
-from auth import auth
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 
 API_PREFIX = "/api/v1"
 
@@ -22,10 +22,6 @@ limiter = Limiter(app, global_limits=[config.DEFAULT_RATE], key_func=get_remote_
 limiter.limit("40/day")(users_api)
 limiter.limit(config.DEFAULT_RATE, per_method=True, methods=["post", "put", "delete"])(courses_api)
 limiter.limit(config.DEFAULT_RATE, per_method=True, methods=["post", "put", "delete"])(reviews_api)
-
-
-# limiter.exempt(courses_api)
-# limiter.exempt(reviews_api)
 
 
 @app.route('/')
